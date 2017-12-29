@@ -1,5 +1,6 @@
 package com.example;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -38,6 +39,8 @@ public class Main {
                 case 6:
                     quit = true;
                     break;
+                case 7:
+                    processArrayList();
             }
         }
     }
@@ -51,6 +54,7 @@ public class Main {
         System.out.println("\t 4 - To remove an item from the list.");
         System.out.println("\t 5 - To search for an item in the list.");
         System.out.println("\t 6 - To quit the application");
+        System.out.println("\t 7 - To process array list");
     }
 
     public static void addItem(){
@@ -59,28 +63,36 @@ public class Main {
     }
 
     public static void modifyItem(){
-        System.out.print("Enter item number: ");
-        int itemNumber = scanner.nextInt();
-        scanner.nextLine();
+        System.out.print("Enter item name: ");
+        String item = scanner.nextLine();
         System.out.println("Enter replacement item");
         String newItem = scanner.nextLine();
-        groceryList.modifyGroceryItem(itemNumber-1, newItem);
+        groceryList.modifyGroceryItem(item, newItem);
     }
 
     public static void removeItem(){
-        System.out.print("Enter item number: ");
-        int itemNumber = scanner.nextInt();
-        scanner.nextLine();
-        groceryList.removeGroceryItem(itemNumber-1);
+        System.out.print("Enter item namer: ");
+        String itemNumber = scanner.nextLine();
+        groceryList.removeGroceryItem(itemNumber);
     }
 
     public static void searchForItem(){
         System.out.println("Item to search for: ");
         String searchItem = scanner.nextLine();
-        if(groceryList.findItem(searchItem) != null){
+        if(groceryList.onFile(searchItem)){
             System.out.println("Found " + searchItem + " in grocery list");
         } else{
             System.out.println(searchItem + " is not in the shopping list");
         }
+    }
+
+    public static void processArrayList(){
+        ArrayList<String> newArray = new ArrayList<String>();
+        newArray.addAll(groceryList.getGroceryList());
+
+        ArrayList<String> nextArray = new ArrayList<String>(groceryList.getGroceryList());
+
+        String[] myArray = new String[groceryList.getGroceryList().size()];
+        myArray = groceryList.getGroceryList().toArray(myArray);
     }
 }
